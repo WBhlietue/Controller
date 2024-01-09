@@ -29,7 +29,7 @@ public class MainManager : MonoBehaviour
             status = status
         };
         
-        UnityWebRequest www = UnityWebRequest.Post(CheckIP.serverIP+"/key", JsonUtility.ToJson(data));
+        UnityWebRequest www = UnityWebRequest.PostWwwForm(CheckIP.serverIP+"/key", JsonUtility.ToJson(data));
         www.SetRequestHeader("Content-Type", "application/json");
         yield return www.SendWebRequest();
         

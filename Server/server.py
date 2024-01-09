@@ -30,16 +30,16 @@ pydirectinput.PAUSE = 0.03
 with open('./Server/keymap.json', 'r') as file:
     json_data = json.load(file)
 
-def PressKey():
-    print("thread")
-    while True:
-        for i in keyList:
-            # pyautogui.press(i)
-            # keyboard.press_and_release(i)
-            pydirectinput.keyDown(i)
+# def PressKey():
+#     print("thread")
+#     while True:
+#         for i in keyList:
+#             # pyautogui.press(i)
+#             # keyboard.press_and_release(i)
+#             pydirectinput.keyDown(i)
 
-tr = threading.Thread(target=PressKey)
-tr.start()
+# tr = threading.Thread(target=PressKey)
+# tr.start()
 
 @app.route('/')
 def hello():
@@ -64,12 +64,14 @@ def Key():
     if(status == 0):
         # while keyName in keyList:
         #     keyList.remove(keyName)
-        pydirectinput.keyUp(keyName)
+        for i in keyName.split(","):
+            pydirectinput.keyUp(i)
     else:
         # if keyName not in keyList:
         #     keyList.append(keyName)
-        pydirectinput.keyDown(keyName)
-    print(keyName)
+        for i in keyName.split(","):
+            pydirectinput.keyDown(i)
+            
     return "connected"
 
 

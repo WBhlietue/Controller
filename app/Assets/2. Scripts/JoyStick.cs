@@ -20,10 +20,12 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
             {
                 if (dirSet[i].key != previous)
                 {
-                    if(previous.Length > 0){
+                    if (previous.Length > 0)
+                    {
                         MainManager.instance.SendData(previous, 0);
                     }
                     previous = dirSet[i].key;
+                    Debug.Log(dirSet[i].key);
                     MainManager.instance.SendData(dirSet[i].key, 1);
                 }
 
@@ -56,6 +58,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public void OnPointerUp(PointerEventData eventData)
     {
         handle.localPosition = Vector3.zero;
+        MainManager.instance.SendData(previous, 0);
     }
 }
 

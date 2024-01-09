@@ -40,7 +40,7 @@ public class CheckIP : MonoBehaviour
 
         };
         Debug.Log(JsonUtility.ToJson(data));
-        UnityWebRequest www = UnityWebRequest.Post(ip, JsonUtility.ToJson(data));
+        UnityWebRequest www = UnityWebRequest.PostWwwForm(ip, JsonUtility.ToJson(data));
         www.SetRequestHeader("Content-Type", "application/json");
 
         yield return www.SendWebRequest();
