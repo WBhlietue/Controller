@@ -26,8 +26,11 @@ mouseDirY = 0
 
 pydirectinput.PAUSE = 0.03
 
-with open("./Server/keymap.json", "r") as file:
+with open("./keymap.json", "r") as file:
     json_data = json.load(file)
+    for i in json_data:
+        print(i, "-->" ,json_data.get(i))
+    speed = json_data.get("cursorSpeed")
 
 # def PressKey():
 #     print("thread")
@@ -45,7 +48,10 @@ def MouseMove():
     global mouseDirY
     global mouseDirX
     while True:
-        pydirectinput.moveRel(mouseDirX * speed, mouseDirY * speed, relative=True)
+        try:
+            pydirectinput.moveRel(mouseDirX * speed, mouseDirY * speed, relative=True)
+        except:
+            pass
 tr = threading.Thread(target=MouseMove)
 tr.start()
 
