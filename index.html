@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="number" id="input1">
+    <button id="button">Click</button>
+    <div id="result"></div>
+    <img src="./">
+    <script>
+        let a = 10
+        document.getElementById("button").onclick = function(){
+            let b = document.getElementById("input1").value
+            document.getElementById("result").innerHTML = a/b
+        }
+    </script>
+</body>
+</html>
