@@ -16,15 +16,19 @@ public class MainManager : MonoBehaviour
             SceneManager.LoadScene("CheckIP");
         }
     }
+    public void Back(){
+        SceneManager.LoadScene("CheckIP");
+    }
 
-    public void SendData(string btnName, int status, Vector2 chig)
+    public void SendData(string btnName, int status, Vector2 chig, float length = 0)
     {
         PostData data = new PostData()
         {
             keyName = btnName,
             status = status,
             x = chig.x,
-            y = chig.y
+            y = chig.y,
+            length = length
         };
         CheckIP.ws.Send(JsonUtility.ToJson(data));
         // StartCoroutine(PostRequest(btnName, status));

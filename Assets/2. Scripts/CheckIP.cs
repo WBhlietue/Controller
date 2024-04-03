@@ -17,6 +17,7 @@ class PostData
     public int status;
     public float x;
     public float y;
+    public float length;
 }
 
 public class CheckIP : MonoBehaviour
@@ -28,7 +29,9 @@ public class CheckIP : MonoBehaviour
     public static bool vibrate = false;
     public Toggle toggle;
     public static WebSocket ws;
-    private void Start() {
+    public static string keyMap;
+    private void Start()
+    {
         input.text = PlayerPrefs.GetString("ip", "127.0.0.1");
     }
     public void Check()
@@ -55,6 +58,11 @@ public class CheckIP : MonoBehaviour
             ws.OnMessage += (s, e) =>
             {
                 Debug.Log(e.Data);
+                if (e.Data[0] == '{')
+                {
+                    keyMap = e.Data;
+                    keyMap = keyMap.Substring(1, keyMap.Length-2);
+                }
             };
             ws.Connect();
 
@@ -94,7 +102,7 @@ public class CheckIP : MonoBehaviour
     //         www.Dispose();
 
     //         btnText.text = "connected";
-            
+
     //         serverIP = "http://" + input.text + ":8000";
     //         SceneManager.LoadScene("controller");
 

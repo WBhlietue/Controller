@@ -12,6 +12,19 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     public List<DirSet> dirSet = new List<DirSet>();
     string previous = "";
     public string currentName;
+    public Transform[] roundButtons;
+    public float radius;
+    public float startRot;
+    public float endRot;
+    private void Start()
+    {
+        float dif = endRot - startRot;
+        dif /= (roundButtons.Length-1);
+        for (int i = 0; i < roundButtons.Length; i++)
+        {
+            roundButtons[i].position = new Vector3(Mathf.Cos((startRot + i * dif) * Mathf.Deg2Rad), Mathf.Sin((startRot + i * dif) * Mathf.Deg2Rad)) * radius + transform.position;
+        }
+    }
 
     public void CheckDirection(float angle, Vector2 chig)
     {
@@ -19,16 +32,16 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         // {
         //     if (dirSet[i].Chekc(angle))
         //     {
-                // if (dirSet[i].key != previous)
-                // {
-                //     if (previous.Length > 0)
-                //     {
-                //         MainManager.instance.SendData(previous, 0, chig.normalized);
-                //     }
-                    // previous = dirSet[i].key;
-                    // Debug.Log(dirSet[i].key);
-                    MainManager.instance.SendData("joystick-" + currentName, 1, chig.normalized);
-                // }
+        // if (dirSet[i].key != previous)
+        // {
+        //     if (previous.Length > 0)
+        //     {
+        //         MainManager.instance.SendData(previous, 0, chig.normalized);
+        //     }
+        // previous = dirSet[i].key;
+        // Debug.Log(dirSet[i].key);
+        MainManager.instance.SendData("joystick-" + currentName, 1, chig.normalized, Mathf.Min(chig.magnitude / maxDistance, 1));
+        // }
 
         //     }
         // }
@@ -53,7 +66,7 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     void Calculate()
     {
         float angle = Vector2.Angle(handle.localPosition, Vector2.up) * (handle.localPosition.x > 0 ? 1 : -1);
-        CheckDirection(angle, (Vector2)handle.localPosition );
+        CheckDirection(angle, (Vector2)handle.localPosition);
     }
 
     public void OnPointerUp(PointerEventData eventData)
